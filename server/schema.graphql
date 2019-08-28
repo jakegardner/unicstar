@@ -1,14 +1,24 @@
 type User {
-  id: ID!
+  id: ID! @id
   name: String!
   age: Int!
+  posts: [Post!]!
+}
+
+type Post {
+  date: String!
+  postedBy: User
+  content: String!
 }
 
 type Query {
   users: [User!]!
-  user(id: String!): User
+  user(id: ID!): User
+  posts: [Post!]!
+  userPosts(id: ID!): [Post!]!
 }
 
 type Mutation {
   createUser(name: String!, age: Int!): User!
+  createPost(date: String!, userId: ID!, content: String!): Post!
 }
