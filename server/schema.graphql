@@ -1,8 +1,9 @@
 type User {
-  id: ID! @id
+  id: ID!
   name: String!
   age: Int!
   posts: [Post!]!
+  following: [ID!]!
 }
 
 type Post {
@@ -21,4 +22,6 @@ type Query {
 type Mutation {
   createUser(name: String!, age: Int!): User!
   createPost(date: String!, userId: ID!, content: String!): Post!
+  followUser(userId: ID!, follow: ID!): User!
+  unfollowUser(userId: ID!, unfollow: ID!): User!
 }

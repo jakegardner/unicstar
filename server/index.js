@@ -19,6 +19,7 @@ const resolvers = {
         id: `user-${idCount++}`,
         name,
         age,
+        following: [],
       };
       users.push(user);
       return user;
@@ -32,7 +33,29 @@ const resolvers = {
       };
       posts.push(post);
       return post;
-    }
+    },
+    followUser: (parent, { userId, follow }) => {
+      let updatedUser;
+      users = users.map(us => {
+        if (us.id === userId) {
+          us.following.push(follow);
+          updatedUser = us;
+        };
+        return us;
+      });
+      return updatedUser;
+    },
+    unfollowUser: (parent, { userId, unfollow }) => {
+      let updatedUser;
+      users = users.map(us => {
+        if (us.id === userId) {
+          us.following = us.following.filter(fId => fId !== unfollow);
+          updatedUser = us;
+        };
+        return us;
+      });
+      return updatedUser;
+    },
   },
 };
 
