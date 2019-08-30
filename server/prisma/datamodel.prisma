@@ -1,0 +1,15 @@
+type User {
+  id: ID! @id
+  createdAt: DateTime! @createdAt
+  name: String!
+  age: Int!
+  posts: [Post!] @relation(name: "UserPosts")
+  following: [User!] @relation(name: "UserFollowing")
+}
+
+type Post {
+  id: ID! @id
+  createdAt: DateTime! @createdAt
+  postedBy: User! @relation(name: "UserPosts")
+  content: String!
+}

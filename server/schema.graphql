@@ -1,14 +1,16 @@
 type User {
   id: ID!
+  createdAt: String!
   name: String!
   age: Int!
-  posts: [Post!]!
-  following: [ID!]!
+  posts: [Post!]
+  following: [User]
 }
 
 type Post {
-  date: String!
-  postedBy: User
+  id: ID!
+  createdAt: String!
+  postedBy: User!
   content: String!
 }
 
@@ -17,11 +19,12 @@ type Query {
   user(id: ID!): User
   posts: [Post!]!
   userPosts(id: ID!): [Post!]!
+  userFollowing(id: ID!): [User!]!
 }
 
 type Mutation {
   createUser(name: String!, age: Int!): User!
-  createPost(date: String!, userId: ID!, content: String!): Post!
+  createPost(userId: ID!, content: String!): Post!
   followUser(userId: ID!, follow: ID!): User!
   unfollowUser(userId: ID!, unfollow: ID!): User!
 }
