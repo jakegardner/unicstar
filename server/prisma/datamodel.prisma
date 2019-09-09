@@ -1,6 +1,8 @@
 type User {
   id: ID! @id
   createdAt: DateTime! @createdAt
+  email: String! @unique
+  password: String!
   name: String!
   age: Int!
   posts: [Post!] @relation(name: "UserPosts")

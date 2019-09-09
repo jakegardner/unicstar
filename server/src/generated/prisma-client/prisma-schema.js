@@ -270,6 +270,8 @@ type Subscription {
 type User {
   id: ID!
   createdAt: DateTime!
+  email: String!
+  password: String!
   name: String!
   age: Int!
   posts(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Post!]
@@ -284,6 +286,8 @@ type UserConnection {
 
 input UserCreateInput {
   id: ID
+  email: String!
+  password: String!
   name: String!
   age: Int!
   posts: PostCreateManyWithoutPostedByInput
@@ -302,6 +306,8 @@ input UserCreateOneWithoutPostsInput {
 
 input UserCreateWithoutFollowingInput {
   id: ID
+  email: String!
+  password: String!
   name: String!
   age: Int!
   posts: PostCreateManyWithoutPostedByInput
@@ -309,6 +315,8 @@ input UserCreateWithoutFollowingInput {
 
 input UserCreateWithoutPostsInput {
   id: ID
+  email: String!
+  password: String!
   name: String!
   age: Int!
   following: UserCreateManyWithoutFollowingInput
@@ -324,6 +332,10 @@ enum UserOrderByInput {
   id_DESC
   createdAt_ASC
   createdAt_DESC
+  email_ASC
+  email_DESC
+  password_ASC
+  password_DESC
   name_ASC
   name_DESC
   age_ASC
@@ -333,6 +345,8 @@ enum UserOrderByInput {
 type UserPreviousValues {
   id: ID!
   createdAt: DateTime!
+  email: String!
+  password: String!
   name: String!
   age: Int!
 }
@@ -360,6 +374,34 @@ input UserScalarWhereInput {
   createdAt_lte: DateTime
   createdAt_gt: DateTime
   createdAt_gte: DateTime
+  email: String
+  email_not: String
+  email_in: [String!]
+  email_not_in: [String!]
+  email_lt: String
+  email_lte: String
+  email_gt: String
+  email_gte: String
+  email_contains: String
+  email_not_contains: String
+  email_starts_with: String
+  email_not_starts_with: String
+  email_ends_with: String
+  email_not_ends_with: String
+  password: String
+  password_not: String
+  password_in: [String!]
+  password_not_in: [String!]
+  password_lt: String
+  password_lte: String
+  password_gt: String
+  password_gte: String
+  password_contains: String
+  password_not_contains: String
+  password_starts_with: String
+  password_not_starts_with: String
+  password_ends_with: String
+  password_not_ends_with: String
   name: String
   name_not: String
   name_in: [String!]
@@ -406,6 +448,8 @@ input UserSubscriptionWhereInput {
 }
 
 input UserUpdateInput {
+  email: String
+  password: String
   name: String
   age: Int
   posts: PostUpdateManyWithoutPostedByInput
@@ -413,11 +457,15 @@ input UserUpdateInput {
 }
 
 input UserUpdateManyDataInput {
+  email: String
+  password: String
   name: String
   age: Int
 }
 
 input UserUpdateManyMutationInput {
+  email: String
+  password: String
   name: String
   age: Int
 }
@@ -447,12 +495,16 @@ input UserUpdateOneRequiredWithoutPostsInput {
 }
 
 input UserUpdateWithoutFollowingDataInput {
+  email: String
+  password: String
   name: String
   age: Int
   posts: PostUpdateManyWithoutPostedByInput
 }
 
 input UserUpdateWithoutPostsDataInput {
+  email: String
+  password: String
   name: String
   age: Int
   following: UserUpdateManyWithoutFollowingInput
@@ -497,6 +549,34 @@ input UserWhereInput {
   createdAt_lte: DateTime
   createdAt_gt: DateTime
   createdAt_gte: DateTime
+  email: String
+  email_not: String
+  email_in: [String!]
+  email_not_in: [String!]
+  email_lt: String
+  email_lte: String
+  email_gt: String
+  email_gte: String
+  email_contains: String
+  email_not_contains: String
+  email_starts_with: String
+  email_not_starts_with: String
+  email_ends_with: String
+  email_not_ends_with: String
+  password: String
+  password_not: String
+  password_in: [String!]
+  password_not_in: [String!]
+  password_lt: String
+  password_lte: String
+  password_gt: String
+  password_gte: String
+  password_contains: String
+  password_not_contains: String
+  password_starts_with: String
+  password_not_starts_with: String
+  password_ends_with: String
+  password_not_ends_with: String
   name: String
   name_not: String
   name_in: [String!]
@@ -532,6 +612,7 @@ input UserWhereInput {
 
 input UserWhereUniqueInput {
   id: ID
+  email: String
 }
 `
       }

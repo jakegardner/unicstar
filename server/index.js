@@ -1,5 +1,19 @@
 const { GraphQLServer } = require('graphql-yoga');
 const { prisma } = require('./src/generated/prisma-client')
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+
+const APP_SECRET = 'GraphQL!';
+
+function getUserId(context) {
+  const Authorization = context.request.get('Authorization');
+  if (Authorization) {
+    const token = Authorization.replace('Bearer ', '');
+    const { userId } = jwt.verify(token, APP_SECRET);
+    return userId;
+  }
+  throw new Error('Not authenticated')
+}
 
 const resolvers = {
   User: {
@@ -23,13 +37,16 @@ const resolvers = {
     userFollowing: (parent, args, context) => context.prisma.user({ id: args.id }).following(),
   },
   Mutation: {
-    createUser: async (parent, { name, age }, context) => {
+    createUser: async (parent, { email, password, name, age }, context) => {
       return await context.prisma.createUser({
+        email,
+        password,
         name,
         age,
       });
     },
-    createPost: async (parent, { userId, content }, context) => {
+    createPost: async (parent, { content }, context) => {
+      const userId = getUserId(context);
       await context.prisma.updateUser({
         where: { id: userId },
         data: {
@@ -41,7 +58,8 @@ const resolvers = {
       });
       return await context.prisma.posts({ where: { postedBy: userId, content } });
     },
-    followUser: async (parent, { userId, follow }, context) => {
+    followUser: async (parent, { follow }, context) => {
+      const userId = getUserId(context);
       return await context.prisma.updateUser({
         where: { id: userId },
         data: {
@@ -51,7 +69,8 @@ const resolvers = {
         },
       });
     },
-    unfollowUser: async (parent, { userId, unfollow }, context) => {
+    unfollowUser: async (parent, { unfollow }, context) => {
+      const userId = getUserId(context);
       return await context.prisma.updateUser({
         where: { id: userId },
         data: {
@@ -60,6 +79,30 @@ const resolvers = {
           },
         },
       });
+    },
+    signup: async (parent, args, context, info) => {
+      const password = await bcrypt.hash(args.password, 10);
+      const user = await context.prisma.createUser({ ...args, password });
+      const token = jwt.sign({ userId: user.id }, APP_SECRET);
+      return {
+        token,
+        user,
+      };
+    },
+    login: async (parent, args, context, info) => {
+      const user = await context.prisma.user({ email: args.email });
+      if (!user) {
+        throw new Error('No such user found')
+      }
+      const valid = await bcrypt.compare(args.password, user.password);
+      if (!valid) {
+        throw new Error('Invalid password')
+      }
+      const token = jwt.sign({ userId: user.id }, APP_SECRET);
+      return {
+        token,
+        user,
+      };
     },
   },
 };
