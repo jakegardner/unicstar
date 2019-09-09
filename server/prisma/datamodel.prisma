@@ -12,6 +12,6 @@ type User {
 type Post {
   id: ID! @id
   createdAt: DateTime! @createdAt
-  postedBy: User! @relation(name: "UserPosts")
+  postedBy: User! @relation(name: "UserPosts") @unique
   content: String!
 }

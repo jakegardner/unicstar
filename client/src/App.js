@@ -6,6 +6,7 @@ import Header from './components/Header';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import PostList from './components/PostList';
+import CreatePost from './components/CreatePost';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route exact path="/" component={PostList} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
+          <Route exact path="/new" component={CreatePost} />
         </Switch>
       </div>
     </div>

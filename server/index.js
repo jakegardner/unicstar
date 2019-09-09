@@ -12,7 +12,7 @@ function getUserId(context) {
     const { userId } = jwt.verify(token, APP_SECRET);
     return userId;
   }
-  throw new Error('Not authenticated')
+  throw new Error('Not authenticated');
 }
 
 const resolvers = {
@@ -47,16 +47,11 @@ const resolvers = {
     },
     createPost: async (parent, { content }, context) => {
       const userId = getUserId(context);
-      await context.prisma.updateUser({
-        where: { id: userId },
-        data: {
-          posts: {
-            create: [{ content }],
-            connect: [{ postedBy: userId }],
-          },
-        },
+      const post = await context.prisma.createPost({
+        content,
+        postedBy: { connect: { id: userId } },
       });
-      return await context.prisma.posts({ where: { postedBy: userId, content } });
+      return post;
     },
     followUser: async (parent, { follow }, context) => {
       const userId = getUserId(context);
@@ -110,7 +105,12 @@ const resolvers = {
 const server = new GraphQLServer({
   typeDefs: './schema.graphql',
   resolvers,
-  context: { prisma },
+  context: request => {
+    return {
+      ...request,
+      prisma,
+    }
+  },
 });
 
 server.start(() => console.log(`Server is running on http://localhost:4000`));

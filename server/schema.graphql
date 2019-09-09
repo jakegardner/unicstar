@@ -31,9 +31,9 @@ type Query {
 
 type Mutation {
   createUser(name: String!, age: Int!): User!
-  createPost(userId: ID!, content: String!): Post!
-  followUser(userId: ID!, follow: ID!): User!
-  unfollowUser(userId: ID!, unfollow: ID!): User!
+  createPost(content: String!): Post!
+  followUser(follow: ID!): User!
+  unfollowUser(unfollow: ID!): User!
   signup(email: String!, password: String!, name: String!, age: Int): AuthPayload
   login(email: String!, password: String!): AuthPayload
 }

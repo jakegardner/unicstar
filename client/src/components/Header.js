@@ -13,14 +13,20 @@ function Header({ history }) {
         </Link>
         <p>|</p>
         {token ?
-          <div
-            onClick={() => {
-              localStorage.removeItem('AUTH_TOKEN');
-              history.push('/');
-            }}
-          >
-            logout
-          </div> :
+          <div>
+            <div
+              onClick={() => {
+                localStorage.removeItem('AUTH_TOKEN');
+                history.push('/');
+              }}
+            >
+              logout
+            </div>
+            <Link to="/new">
+              new post
+            </Link>
+          </div>
+          :
           <Link to="/login">
             login
           </Link>
