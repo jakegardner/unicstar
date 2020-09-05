@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
+import { History } from 'history';
 
 import {
   Button,
@@ -18,8 +19,12 @@ const POST_MUTATION = gql`
   }
 `;
 
-function CreatePost({ history }) {
-  const [content, setContent] = useState();
+type CreatePostProps = {
+  history: History,
+};
+
+const CreatePost: React.FC<CreatePostProps> = ({ history }) => {
+  const [content, setContent] = useState<string>();
   const [createPost, { data }] = useMutation(POST_MUTATION);
   if (data) {
     history.push('/');
@@ -31,7 +36,7 @@ function CreatePost({ history }) {
         <Textarea
           width="100%"
           value={content}
-          onChange={e => setContent(e.target.value)}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) => setContent(event.target.value)}
           placeholder="What joy shall we make today?"
         />
         <Button
@@ -47,6 +52,6 @@ function CreatePost({ history }) {
       </Stack>
     </Flex>
   );
-}
+};
 
 export default CreatePost;

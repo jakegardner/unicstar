@@ -9,7 +9,20 @@ import {
 import Header from './Header';
 import theme from '../styles/theme';
 
-function Post({ post }) {
+declare interface IPost {
+  id: string,
+  content: string,
+  createdAt: Date,
+  postedBy: {
+    name: string,
+  },
+};
+
+type PostProps = {
+  post: IPost,
+};
+
+const Post: React.FC<PostProps> = ({ post }) => {
   return (
     <Flex
       width="100%"
@@ -58,18 +71,19 @@ const POSTLIST_QUERY = gql`
   }
 `;
 
-function PostList() {
+const PostList: React.FC = () => {
   const { loading, error, data } = useQuery(POSTLIST_QUERY);
-  if (loading) return <p>Loading ...</p>;
-  if (error) return <p>Error loading data!</p>;
+  if (loading) return <Flex>Loading ...</Flex>;
+  if (error) return <Flex>Error loading data!</Flex>;
+
   return (
     <Flex align="center" justify="center" direction="column" width="100%" height="100%" bg={theme.colors.lilac}>
       <Header />
       <Flex direction="column" width={['80%', '70%', '40%']} height="100%" bg={theme.colors.lilac}>
-        {data.posts.map(post => <Post post={post} />)}
+        {data.posts.map((post: IPost) => <Post post={post} />)}
       </Flex>
     </Flex>
   );
-}
+};
 
 export default PostList;

@@ -7,6 +7,7 @@
     "@chakra-ui/core": "^0.8.0",
     "@emotion/core": "^10.0.35",
     "@emotion/styled": "^10.0.27",
+    "@types/react-router-dom": "^5.1.5",
     "apollo-boost": "^0.4.4",
     "apollo-cache-inmemory": "^1.6.6",
     "apollo-client": "^2.6.10",
@@ -15,13 +16,14 @@
     "emotion-theming": "^10.0.27",
     "graphql": "^14.5.4",
     "graphql-tag": "^2.11.0",
+    "history": "^5.0.0",
     "moment": "^2.24.0",
     "react": "^16.9.0",
     "react-apollo": "^3.1.0",
     "react-dom": "^16.9.0",
     "react-router": "^5.0.1",
     "react-router-dom": "^5.0.1",
-    "react-scripts": "3.1.1"
+    "react-scripts": "3.1.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -32,8 +34,8 @@
   },
   "eslintConfig": {
     "extends": [
-      "plugin:@typescript-eslint/recommended",
-      "airbnb"
+      "airbnb",
+      "plugin:@typescript-eslint/recommended"
     ],
     "plugins": [
       "@typescript-eslint"
@@ -48,7 +50,19 @@
       "arrow-parens": "off"
     },
     "parser": "@typescript-eslint/parser",
-    "ignorePatterns": ["serviceWorker.js"]
+    "overrides": [
+      {
+        "files": [
+          "**/*.tsx"
+        ],
+        "rules": {
+          "react/prop-types": "off"
+        }
+      }
+    ],
+    "ignorePatterns": [
+      "serviceWorker.js"
+    ]
   },
   "browserslist": {
     "production": [

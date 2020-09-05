@@ -7,7 +7,7 @@ import { createHttpLink } from 'apollo-link-http';
 import { BrowserRouter } from 'react-router-dom';
 import { setContext } from 'apollo-link-context';
 import './index.css';
-import App from './App';
+import App from './App.tsx';
 import * as serviceWorker from './serviceWorker';
 
 const authLink = setContext((_, { headers }) => {

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
+import { History } from 'history';
 
 import {
   Button,
@@ -10,7 +11,11 @@ import {
 import CreatePost from './CreatePost';
 import theme from '../styles/theme';
 
-function Header({ history }) {
+type HeaderProps = {
+  history: History,
+};
+
+const Header: React.FC<HeaderProps> = ({ history }) => {
   const token = localStorage.getItem('AUTH_TOKEN');
   return (
     <Flex
@@ -34,7 +39,7 @@ function Header({ history }) {
         </Link>
       </Flex>
       { token
-        ? <CreatePost />
+        ? <CreatePost history={history} />
         : (
           <Flex
             direction="column"
@@ -50,7 +55,7 @@ function Header({ history }) {
                   marginRight="3"
                   bg={theme.colors.naplesYellow}
                   _hover={{ bg: theme.colors.blonde }}
-                  color={theme.colors.jet}
+                  color={theme.colors.silver}
                 >
                 Login
                 </Button>
@@ -75,6 +80,6 @@ function Header({ history }) {
         )}
     </Flex>
   );
-}
+};
 
 export default withRouter(Header);

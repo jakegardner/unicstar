@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
+import { History } from 'history';
 
 import {
   Button,
@@ -20,11 +21,15 @@ const SIGNUP_MUTATION = gql`
   }
 `;
 
-function Signup({ history }) {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-  const [name, setName] = useState();
-  const [age, setAge] = useState();
+type SignupProps = {
+  history: History,
+};
+
+const Signup: React.SFC<SignupProps> = ({ history }) => {
+  const [email, setEmail] = useState<string>();
+  const [password, setPassword] = useState<string>();
+  const [name, setName] = useState<string>();
+  const [age, setAge] = useState<string>();
   const [signupUser, { data }] = useMutation(SIGNUP_MUTATION);
 
   if (data) {
@@ -47,29 +52,25 @@ function Signup({ history }) {
         <Input
           variant="outline"
           placeholder="Name"
-          onChange={e => setName(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
           value={name}
-          focusBorderColor={theme.colors.darkgreen}
         />
         <Input
           variant="outline"
           placeholder="Email"
-          onChange={e => setEmail(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
           value={email}
-          focusBorderColor={theme.colors.darkgreen}
         />
         <PasswordInput
-          onChange={e => setPassword(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
           value={password}
-          focusBorderColor={theme.colors.darkgreen}
         />
         <Input
           marginTop="2"
           variant="outline"
           placeholder="Age"
-          onChange={e => setAge(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAge(e.target.value)}
           value={age}
-          focusBorderColor={theme.colors.darkgreen}
         />
       </Stack>
       <Flex direction="column" justify="center" align="center">
@@ -83,7 +84,7 @@ function Signup({ history }) {
           marginBottom="3"
           bg={theme.colors.naplesYellow}
           _hover={{ bg: theme.colors.blonde }}
-          color={theme.colors.jet}
+          color={theme.colors.silver}
         >
           Create account
         </Button>
@@ -92,13 +93,13 @@ function Signup({ history }) {
           onClick={() => history.push('/login')}
           bg={theme.colors.turquoise}
           _hover={{ bg: theme.colors.celeste }}
-          color={theme.colors.jet}
+          color={theme.colors.silver}
         >
           Already have account?
         </Button>
       </Flex>
     </Flex>
   );
-}
+};
 
 export default Signup;

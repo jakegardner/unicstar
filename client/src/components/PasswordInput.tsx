@@ -7,8 +7,13 @@ import {
   InputRightElement,
 } from '@chakra-ui/core';
 
-function PasswordInput({ onChange, value }) {
-  const [show, setShow] = useState(false);
+type PasswordInputProps = {
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void,
+  value?: string,
+};
+
+const PasswordInput: React.FC<PasswordInputProps> = ({ onChange, value }) => {
+  const [show, setShow] = useState<boolean>(false);
   const handleClick = () => setShow(!show);
 
   return (
@@ -27,6 +32,6 @@ function PasswordInput({ onChange, value }) {
       </InputRightElement>
     </InputGroup>
   );
-}
+};
 
 export default PasswordInput;

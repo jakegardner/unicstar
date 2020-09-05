@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
+import { History } from 'history';
 
 import {
   Button,
@@ -20,9 +21,13 @@ const LOGIN_MUTATION = gql`
   }
 `;
 
-function Login({ history }) {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+type LoginProps = {
+  history: History,
+};
+
+const Login: React.SFC<LoginProps> = ({ history }) => {
+  const [email, setEmail] = useState<string>();
+  const [password, setPassword] = useState<string>();
   const [loginUser, { data }] = useMutation(LOGIN_MUTATION);
 
   if (data) {
@@ -45,14 +50,12 @@ function Login({ history }) {
         <Input
           variant="outline"
           placeholder="Email"
-          onChange={e => setEmail(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
           value={email}
-          focusBorderColor={theme.colors.darkgreen}
         />
         <PasswordInput
-          onChange={e => setPassword(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
           value={password}
-          focusBorderColor={theme.colors.darkgreen}
         />
       </Stack>
       <Flex direction="row" justify="center">
@@ -64,7 +67,7 @@ function Login({ history }) {
           marginRight="2"
           bg={theme.colors.naplesYellow}
           _hover={{ bg: theme.colors.blonde }}
-          color={theme.colors.jet}
+          color={theme.colors.silver}
         >
           Login
         </Button>
@@ -73,13 +76,13 @@ function Login({ history }) {
           onClick={() => history.push('/signup')}
           bg={theme.colors.turquoise}
           _hover={{ bg: theme.colors.celeste }}
-          color={theme.colors.jet}
+          color={theme.colors.silver}
         >
           Signup
         </Button>
       </Flex>
     </Flex>
   );
-}
+};
 
 export default Login;
