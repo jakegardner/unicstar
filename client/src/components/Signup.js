@@ -76,7 +76,9 @@ function Signup({ history }) {
         <Button
           size="md"
           onClick={() => signupUser({
-            variables: { email, password, name, age: Number(age) },
+            variables: {
+              email, password, name, age: Number(age),
+            },
           })}
           marginBottom="3"
           bg={theme.colors.naplesYellow}

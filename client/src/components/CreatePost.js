@@ -26,7 +26,7 @@ function CreatePost({ history }) {
   }
 
   return (
-    <Flex width={["80%", "70%", "40%"]}>
+    <Flex width={['80%', '70%', '40%']}>
       <Stack width="100%">
         <Textarea
           width="100%"
@@ -40,7 +40,8 @@ function CreatePost({ history }) {
           color={theme.colors.silver}
           onClick={() => createPost({
             variables: { content },
-          })}>
+          })}
+        >
           Share rainbows
         </Button>
       </Stack>

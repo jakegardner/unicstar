@@ -23,7 +23,7 @@ function Header({ history }) {
       paddingBottom="5"
     >
       <Flex>
-        <Link to="/" >
+        <Link to="/">
           <Image
             src={theme.landingLogo}
             alt="unicorn"
@@ -33,32 +33,33 @@ function Header({ history }) {
           />
         </Link>
       </Flex>
-      { token ?
-        <CreatePost />
-        :
-        <Flex
-          direction="column"
-          align="center"
-        >
-          <Flex fontSize="2em" color={theme.colors.silver} marginBottom="2">
+      { token
+        ? <CreatePost />
+        : (
+          <Flex
+            direction="column"
+            align="center"
+          >
+            <Flex fontSize="2em" color={theme.colors.silver} marginBottom="2">
             What joy will you share today?
-          </Flex>
-          <Flex height="100%" direction="column" width="100%">
-            <Link to="/login">
-              <Button
-                width="100%"
-                marginRight="3"
-                bg={theme.colors.naplesYellow}
-                _hover={{ bg: theme.colors.blonde }}
-                color={theme.colors.jet}
-              >
+            </Flex>
+            <Flex height="100%" direction="column" width="100%">
+              <Link to="/login">
+                <Button
+                  width="100%"
+                  marginRight="3"
+                  bg={theme.colors.naplesYellow}
+                  _hover={{ bg: theme.colors.blonde }}
+                  color={theme.colors.jet}
+                >
                 Login
-              </Button>
-            </Link>
+                </Button>
+              </Link>
+            </Flex>
           </Flex>
-        </Flex>
-      }
-      {token &&
+        )}
+      {token
+        && (
         <Button
           onClick={() => {
             localStorage.removeItem('AUTH_TOKEN');
@@ -71,7 +72,7 @@ function Header({ history }) {
         >
           Logout
         </Button>
-      }
+        )}
     </Flex>
   );
 }

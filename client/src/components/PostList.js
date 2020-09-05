@@ -65,7 +65,7 @@ function PostList() {
   return (
     <Flex align="center" justify="center" direction="column" width="100%" height="100%" bg={theme.colors.lilac}>
       <Header />
-      <Flex direction="column" width={["80%", "70%", "40%"]} height="100%" bg={theme.colors.lilac}>
+      <Flex direction="column" width={['80%', '70%', '40%']} height="100%" bg={theme.colors.lilac}>
         {data.posts.map(post => <Post post={post} />)}
       </Flex>
     </Flex>

@@ -15,14 +15,14 @@ function PasswordInput({ onChange, value }) {
     <InputGroup size="md">
       <Input
         pr="4.5rem"
-        type={show ? "text" : "password"}
+        type={show ? 'text' : 'password'}
         placeholder="Password"
         onChange={onChange}
         value={value}
       />
       <InputRightElement width="4.5rem">
         <Button h="1.75rem" size="sm" onClick={handleClick}>
-          {show ? "Hide" : "Show"}
+          {show ? 'Hide' : 'Show'}
         </Button>
       </InputRightElement>
     </InputGroup>

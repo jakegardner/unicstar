@@ -27,10 +27,28 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "./node_modules/.bin/eslint ."
   },
   "eslintConfig": {
-    "extends": "airbnb"
+    "extends": [
+      "plugin:@typescript-eslint/recommended",
+      "airbnb"
+    ],
+    "plugins": [
+      "@typescript-eslint"
+    ],
+    "env": {
+      "browser": true,
+      "commonjs": true,
+      "es6": true
+    },
+    "rules": {
+      "react/jsx-filename-extension": "off",
+      "arrow-parens": "off"
+    },
+    "parser": "@typescript-eslint/parser",
+    "ignorePatterns": ["serviceWorker.js"]
   },
   "browserslist": {
     "production": [
@@ -45,6 +63,9 @@
     ]
   },
   "devDependencies": {
-    "eslint-config-airbnb": "^18.2.0"
+    "@typescript-eslint/eslint-plugin": "^4.0.1",
+    "@typescript-eslint/parser": "^4.0.1",
+    "eslint-config-airbnb": "^18.2.0",
+    "typescript": "^4.0.2"
   }
 }
