@@ -7,26 +7,26 @@ import { createHttpLink } from 'apollo-link-http';
 import { BrowserRouter } from 'react-router-dom';
 import { setContext } from 'apollo-link-context';
 import './index.css';
-import App from './App';
+import App from './App.tsx';
 import * as serviceWorker from './serviceWorker';
 
 const authLink = setContext((_, { headers }) => {
-  const token = localStorage.getItem('AUTH_TOKEN')
+  const token = localStorage.getItem('AUTH_TOKEN');
   return {
     headers: {
       ...headers,
-      authorization: token ? `Bearer ${token}` : ''
-    }
-  }
+      authorization: token ? `Bearer ${token}` : '',
+    },
+  };
 });
 
 const httpLink = createHttpLink({
-  uri: 'http://localhost:4000'
+  uri: 'http://localhost:4000',
 });
 
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
-  cache: new InMemoryCache()
+  cache: new InMemoryCache(),
 });
 
 ReactDOM.render(
@@ -35,8 +35,8 @@ ReactDOM.render(
       <App />
     </ApolloProvider>
   </BrowserRouter>,
-  document.getElementById('root')
-)
+  document.getElementById('root'),
+);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
